@@ -12,8 +12,7 @@ await mongoose.connect(uri)
     console.log('Connection error: ', err);
 });
 };
-//module.exports= connectDB
-
+module.exports = connectDB;
 
 
 //product schema definition
@@ -48,7 +47,4 @@ const Product = mongoose.model('Product', productSchema);
 
 
 //For Exporting both connectionDB and product schema
-module.exports= {
-  connectDB,
-  productSchema
-};
+module.exports= {  productSchema };

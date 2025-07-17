@@ -1,18 +1,26 @@
-const express = require('express')
-const connectDB = require('./models/products.js')
-const productRouter = require('./routes/index.js')
-const app = express()
+import express from 'express';
+import mongoose from 'mongoose';
+import productRouter from './routes/index.js';
 
-connectDB()
+const app = express();
+
+const connectDB = async () => {
+  const uri = 'mongodb://127.0.0.1:27017/myLocalDatabase';
+  await mongoose.connect(uri)
+    .then(() => console.log('Connected to local MongoDB'))
+    .catch(err => console.log('Connection error:', err));
+};
+
+await connectDB();
+
+app.use(express.json());
+app.use('/api/products', productRouter);
 
 app.get('/', (req, res) => {
-
+  res.send('API is running');
 });
-
-app.use(express.json())
-app.use('/api/products', productRouter)
 
 const PORT = 3000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
