@@ -62,7 +62,7 @@ jobs:
       - name: Run tests inside container
         run: |
           docker run --rm \
-            --workdir /app \
+            --workdir /ProductService \
             --entrypoint "" \
             ${{ env.IMAGE_NAME }}-dev:latest \
             sh -c 'rm -rf node_modules && if [ -f package-lock.json ]; then npm ci; else npm install; fi && (npx vitest run --reporter=verbose || true)'
